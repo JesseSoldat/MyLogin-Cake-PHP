@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -124,5 +125,28 @@ class UsersController extends AppController
 	public function logout(){
     $this->Flash->success('You are logged out');
     return $this->redirect($this->Auth->logout());
-	}
+  }
+  
+  //REGISTER_______________________
+  public function register(){
+    $user = $this->Users->newEntity();
+    if($this->request->is('post')){
+      $user = $this->Users->patchEntity($user, $this->request->data);
+      if($this->Users->save($user)){
+        $this->Flash->success('You are registered and can login');
+        return $this->redirect(['action' => 'login']);
+      } else {
+        $this->Flash-error('You were not able to register');
+      }
+    }
+    $this->set(compact('user'));
+    $this->set('_serialzie', ['user']);
+  }
+
+
+  //ALLOW GUEST TO ACCESS REGISTER______________
+  public function beforeFilter(Event $event){
+    $this->Auth->allow(['register']);
+  }
+  
 }

@@ -47,8 +47,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 								<li>
 									<?= $this->Html->link('Logout', ['controller' => 'users', 'action' => 'logout']); ?>
 								</li>
+                <li>
+                  <?= $this->Html->link('Register', ['controller' => 'users', 'action' => 'register']); ?>
+                </li>
 							<?php else: ?>
-								<li></li>
+                <li>
+                  <?= $this->Html->link('Register', ['controller' => 'users', 'action' => 'register']); ?>
+                </li>
 							<?php endif; ?>
             </ul>
         </section>
